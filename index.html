@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="SheMart — women's innerwear, clothing, cosmetics and beauty essentials in Pakistan."
+    />
+    <title>SheMart | Women's Online Store</title>
+        <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="topbar">
+      Thoughtful finds for her · Delivery across Pakistan · Cash on Delivery
+      option
+    </div>
+    <header class="wrap nav">
+      <a href="#home" style="text-decoration: none"
+        ><div class="logo">SheMart<small>WOMEN'S ONLINE STORE</small></div></a
+      >
+      <nav class="navlinks">
+        <a href="#shop">Shop all</a
+        ><a href="#shop" data-filter-link="Women's innerwear">Innerwear</a
+        ><a href="#shop" data-filter-link="Ladies clothing">Clothing</a
+        ><a href="#shop" data-filter-link="Cosmetics">Cosmetics</a>
+      </nav>
+      <button class="cartbtn" id="openCart">
+        Bag (<span id="cartCount">0</span>)
+      </button>
+    </header>
+    <main class="wrap" id="home">
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow">Welcome to SheMart</div>
+          <h1>Everyday essentials.<br />Made for you.</h1>
+          <p>
+            Discover women's innerwear, clothing, cosmetics and beauty
+            favourites — thoughtfully picked for your everyday routine.
+          </p>
+          <a href="#shop"
+            ><button class="primary">Explore the collection →</button></a
+          >
+        </div>
+        <div class="hero-art" role="img" aria-label="Fashion collection"></div>
+      </section>
+      <section id="shop">
+        <div class="sectionhead">
+          <div>
+            <div class="eyebrow">The SheMart edit</div>
+            <h2>Shop our collection</h2>
+            <p>Browse your favourites and add them to your bag.</p>
+          </div>
+        </div>
+        <div class="categories" id="categories"></div>
+        <div class="tools">
+          <input
+            id="search"
+            type="search"
+            placeholder="Search products…"
+            aria-label="Search products"
+          /><select id="sort" class="chip" aria-label="Sort products">
+            <option value="featured">Featured</option>
+            <option value="low">Price: low to high</option>
+            <option value="high">Price: high to low</option>
+          </select>
+        </div>
+        <div class="grid" id="products"></div>
+      </section>
+      <section class="benefits">
+        <div class="benefit">
+          <b>✦ Carefully selected</b
+          ><span>Everyday styles and beauty essentials in one place.</span>
+        </div>
+        <div class="benefit">
+          <b>🚚 Pakistan-wide delivery</b
+          ><span
+            >Delivery options and charges can be confirmed when ordering.</span
+          >
+        </div>
+        <div class="benefit">
+          <b>✓ Order with confidence</b
+          ><span
+            >Contact us to confirm availability, sizing and your order
+            details.</span
+          >
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="wrap footerinner">
+        <div>
+          <div class="logo">SheMart</div>
+          <p>
+            Women's innerwear, fashion and beauty essentials.<br />Style and
+            comfort, delivered with care.
+          </p>
+        </div>
+        <div>
+          <b>Customer care</b>
+          <p>
+            WhatsApp: Add your business number<br />Email: Add your store
+            email<br />Pakistan
+          </p>
+        </div>
+        <div>
+          <b>Useful links</b>
+          <p>
+            <a style="color: white" href="#shop">Shop products</a><br /><a
+              style="color: white"
+              href="#home"
+              >Back to top</a
+            >
+          </p>
+        </div>
+      </div>
+      <div class="wrap smallprint">
+        © <span id="year"></span> SheMart. Demo store template. Add your real
+        product details and business contact before publishing.
+      </div>
+    </footer>
+    <div
+      class="modal"
+      id="cartModal"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Shopping bag"
+    >
+      <div class="panel">
+        <div class="panelhead">
+          <h2>Your shopping bag</h2>
+          <button class="close" id="closeCart" aria-label="Close">×</button>
+        </div>
+        <div id="cartItems"></div>
+        <div class="total">
+          <span>Total</span><span id="cartTotal">Rs 0</span>
+        </div>
+        <button class="primary" id="checkoutBtn" style="width: 100%">
+          Continue to checkout
+        </button>
+        <p style="font-size: 12px; color: #776b75">
+          Demo prices and products are examples. Please verify before accepting
+          customer orders.
+        </p>
+      </div>
+    </div>
+    <div
+      class="modal"
+      id="checkoutModal"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Checkout"
+    >
+      <div class="panel">
+        <div class="panelhead">
+          <h2>Delivery details</h2>
+          <button class="close" id="closeCheckout" aria-label="Close">×</button>
+        </div>
+        <div class="notice">
+          Please enter your delivery information. The order can be sent by
+          WhatsApp or submitted as a draft on this page. This demo does not
+          store orders on a server.
+        </div>
+        <form id="orderForm">
+          <div class="formgrid">
+            <label
+              >Full name *<input
+                required
+                name="name"
+                autocomplete="name"
+                placeholder="Your name" /></label
+            ><label
+              >Mobile number *<input
+                required
+                name="phone"
+                autocomplete="tel"
+                placeholder="03XX XXXXXXX" /></label
+            ><label class="full"
+              >Full delivery address *<textarea
+                required
+                name="address"
+                rows="2"
+                placeholder="House, street, area, city"
+              ></textarea></label
+            ><label
+              >City *<input
+                required
+                name="city"
+                placeholder="e.g. Lahore" /></label
+            ><label
+              >Payment method<select name="payment">
+                <option>Cash on Delivery</option>
+                <option>Bank transfer (confirm first)</option>
+              </select></label
+            ><label class="full"
+              >Order notes (optional)<textarea
+                name="notes"
+                rows="2"
+                placeholder="Size, colour or delivery instructions"
+              ></textarea>
+            </label>
+          </div>
+          <button
+            class="primary"
+            type="submit"
+            style="width: 100%; margin-top: 15px"
+          >
+            Prepare WhatsApp order</button
+          ><button
+            type="button"
+            class="add"
+            id="draftOrder"
+            style="width: 100%; margin-top: 9px"
+          >
+            Show order summary on this page
+          </button>
+        </form>
+        <div id="orderResult"></div>
+        <p style="font-size: 11px; color: #776b75">
+          Before launch, replace the sample WhatsApp number in the website code
+          with your business number (country code, digits only).
+        </p>
+      </div>
+    </div>
+        <script src="script.js"></script>
+  </body>
+</html>
