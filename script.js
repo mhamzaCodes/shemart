@@ -72,12 +72,110 @@
         "Beauty products",
         "Other ladies items",
       ];
+      function renderSharedChrome() {
+        const page = document.body.dataset.page;
+        const header = document.querySelector("header.nav");
+        const footer = document.querySelector("footer.footer");
+        if (header) {
+          header.outerHTML = `
+            <header class="wrap nav">
+              <a href="index.html" class="brand-link"><div class="logo">SheMart<small>WOMEN'S ONLINE STORE</small></div></a>
+              <nav class="navlinks" aria-label="Main navigation">
+                <a href="index.html">Home</a>
+                <a href="shop.html">Shop all</a>
+                <a href="shop.html?category=Women's%20innerwear">Innerwear</a>
+                <a href="shop.html?category=Ladies%20clothing">Clothing</a>
+                <a href="shop.html?category=Cosmetics">Cosmetics</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+              </nav>
+              <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+              <button class="cartbtn" id="openCart" aria-label="Open cart" title="Open cart">
+                <svg class="carticon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M3 4h2l2.1 10.1a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 1.9-1.4L21 8H7"></path>
+                  <circle cx="10" cy="20" r="1.3"></circle>
+                  <circle cx="18" cy="20" r="1.3"></circle>
+                </svg>
+                <span class="cart-count" id="cartCount" aria-live="polite">0</span>
+              </button>
+            </header>`;
+        }
+        if (footer) {
+          footer.outerHTML = `
+            <footer class="footer">
+              <div class="wrap footerinner">
+                <div>
+                  <div class="logo">SheMart</div>
+                  <p>Women's innerwear, fashion and beauty essentials.<br>Style and comfort, delivered with care.</p>
+                </div>
+                <div>
+                  <b>Customer care</b>
+                  <p>WhatsApp: +92 300 1234567<br>Email: hello@shemart.pk<br>Pakistan-wide delivery</p>
+                </div>
+                <div>
+                  <b>Useful links</b>
+                  <p>
+                    <a href="index.html">Home</a><br>
+                    <a href="shop.html">Shop products</a><br>
+                    <a href="about.html">About SheMart</a><br>
+                    <a href="contact.html">Contact us</a><br>
+                    <a href="https://wa.me/923001234567">WhatsApp support</a>
+                  </p>
+                </div>
+                <div>
+                  <b>Shop by category</b>
+                  <p>
+                    <a href="shop.html?category=Women's%20innerwear">Innerwear</a><br>
+                    <a href="shop.html?category=Ladies%20clothing">Clothing</a><br>
+                    <a href="shop.html?category=Cosmetics">Cosmetics</a><br>
+                    <a href="shop.html?category=Beauty%20products">Beauty &amp; care</a>
+                  </p>
+                </div>
+              </div>
+              <div class="wrap smallprint">
+                <span>© <span id="year"></span> SheMart. All rights reserved.</span>
+                <span>Made for your everyday confidence · Cash on Delivery available</span>
+              </div>
+            </footer>`;
+        }
+        return page;
+      }
+      renderSharedChrome();
       let active = "All products";
+      const requestedCategory = new URLSearchParams(window.location.search).get("category");
+      if (cats.includes(requestedCategory)) active = requestedCategory;
       let cart = {};
+      const savedCart = localStorage.getItem("shemart-cart");
+      if (savedCart) {
+        try {
+          cart = JSON.parse(savedCart);
+        } catch (error) {
+          console.warn("Unable to restore the saved cart.", error);
+          localStorage.removeItem("shemart-cart");
+        }
+      }
       const fmt = (n) => "Rs " + Number(n).toLocaleString("en-PK");
       const $ = (id) => document.getElementById(id);
-      $("year").textContent = new Date().getFullYear();
+      if ($("year")) $("year").textContent = new Date().getFullYear();
+      function updateNavigation() {
+        const page = document.body.dataset.page;
+        const category = new URLSearchParams(window.location.search).get("category");
+        document.querySelectorAll(".navlinks a").forEach((link) => {
+          link.classList.remove("active-link");
+          const url = new URL(link.href, window.location.href);
+          const linkCategory = url.searchParams.get("category");
+          const isHome = page === "home" && url.pathname.endsWith("/index.html");
+          const isPage = page === "shop" && url.pathname.endsWith("/shop.html") && !linkCategory;
+          const isCategory = page === "shop" && category && linkCategory === category;
+          const isAbout = page === "about" && url.pathname.endsWith("/about.html");
+          const isContact = page === "contact" && url.pathname.endsWith("/contact.html");
+          if (isHome || isPage || isCategory || isAbout || isContact) {
+            link.classList.add("active-link");
+          }
+        });
+      }
       function renderCats() {
+        if (!$("categories")) return;
         $("categories").innerHTML = cats
           .map(
             (c) =>
@@ -94,6 +192,7 @@
         );
       }
       function renderProducts() {
+        if (!$("products") || !$("search") || !$("sort")) return;
         let list = productsData.filter(
           (p) =>
             (active === "All products" || p.cat === active) &&
@@ -103,11 +202,12 @@
         );
         if ($("sort").value === "low") list.sort((a, b) => a.price - b.price);
         if ($("sort").value === "high") list.sort((a, b) => b.price - a.price);
+        if (document.body.dataset.page !== "shop") list = list.slice(0, 4);
         $("products").innerHTML = list.length
           ? list
               .map(
                 (p) =>
-                  `<article class="product"><img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'"><div class="productbody"><span class="tag">${p.cat}</span><h3>${p.name}</h3><div class="desc">${p.desc}</div><div class="price">${fmt(p.price)}</div><button class="add" data-add="${p.id}">＋ Add to bag</button></div></article>`,
+                  `<article class="product"><img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'"><div class="productbody"><span class="tag">${p.cat}</span><h3>${p.name}</h3><div class="desc">${p.desc}</div><div class="price">${fmt(p.price)}</div><button class="add" data-add="${p.id}">＋ Add to cart</button></div></article>`,
               )
               .join("")
           : '<div class="empty">No products found. Try another search.</div>';
@@ -118,26 +218,31 @@
               cart[id] = (cart[id] || 0) + 1;
               updateCart();
               b.textContent = "Added ✓";
-              setTimeout(() => (b.textContent = "＋ Add to bag"), 900);
+              setTimeout(() => (b.textContent = "＋ Add to cart"), 900);
             }),
         );
       }
       function updateCart() {
+        localStorage.setItem("shemart-cart", JSON.stringify(cart));
         let count = Object.values(cart).reduce((a, b) => a + b, 0);
-        $("cartCount").textContent = count;
-        $("cartItems").innerHTML = count
+        if ($("cartCount")) {
+          $("cartCount").textContent = count;
+          $("cartCount").classList.toggle("has-items", count > 0);
+        }
+        if ($("cartItems")) $("cartItems").innerHTML = count
           ? Object.entries(cart)
               .map(([id, q]) => {
                 let p = productsData.find((x) => x.id === +id);
-                return `<div class="cartline"><div><b>${p.name}</b><br>${fmt(p.price)} each</div><div class="qty"><button data-dec="${id}">−</button>${q}<button data-inc="${id}">＋</button></div><b>${fmt(p.price * q)}</b></div>`;
+                return `<div class="cartline"><img class="cart-thumb" src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'"><div class="cart-product"><b>${p.name}</b><span>${fmt(p.price)} each</span><div class="qty" aria-label="Quantity for ${p.name}"><button type="button" data-dec="${id}" aria-label="Decrease ${p.name} quantity">−</button><span>${q}</span><button type="button" data-inc="${id}" aria-label="Increase ${p.name} quantity">＋</button></div></div><b class="cart-line-total">${fmt(p.price * q)}</b><button type="button" class="remove-item" data-remove="${id}" aria-label="Remove ${p.name} from cart" title="Remove item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"></path></svg></button></div>`;
               })
               .join("")
-          : '<div class="empty">Your bag is empty. Add a product to get started.</div>';
+          : '<div class="empty">Your cart is empty. Add a product to get started.</div>';
         let total = Object.entries(cart).reduce(
           (s, [id, q]) => s + productsData.find((p) => p.id === +id).price * q,
           0,
         );
-        $("cartTotal").textContent = fmt(total);
+        if ($("cartTotal")) $("cartTotal").textContent = fmt(total);
+        if ($("cartSubtotal")) $("cartSubtotal").textContent = fmt(total);
         document.querySelectorAll("[data-dec]").forEach(
           (b) =>
             (b.onclick = () => {
@@ -155,25 +260,59 @@
               updateCart();
             }),
         );
-        $("checkoutBtn").disabled = !count;
-        $("checkoutBtn").style.opacity = count ? "1" : ".5";
+        document.querySelectorAll("[data-remove]").forEach(
+          (b) =>
+            (b.onclick = () => {
+              delete cart[b.dataset.remove];
+              updateCart();
+            }),
+        );
+        if ($("checkoutBtn")) {
+          $("checkoutBtn").disabled = !count;
+          $("checkoutBtn").style.opacity = count ? "1" : ".5";
+        }
+        if ($("checkoutSummary")) renderCheckoutSummary();
+      }
+      function renderCheckoutSummary() {
+        const summary = $("checkoutSummary");
+        if (!summary) return;
+        const entries = Object.entries(cart);
+        if (!entries.length) {
+          summary.innerHTML = '<div class="checkout-empty">Your cart is empty. <a href="shop.html">Return to shop</a></div>';
+          if ($("checkoutSubmit")) $("checkoutSubmit").disabled = true;
+          return;
+        }
+        const total = entries.reduce((sum, [id, quantity]) => {
+          const product = productsData.find((item) => item.id === +id);
+          return sum + product.price * quantity;
+        }, 0);
+        summary.innerHTML = entries.map(([id, quantity]) => {
+          const product = productsData.find((item) => item.id === +id);
+          return `<div class="checkout-item"><img src="${product.img}" alt="${product.name}"><div><b>${product.name}</b><span>${quantity} × ${fmt(product.price)}</span></div><strong>${fmt(product.price * quantity)}</strong></div>`;
+        }).join("") + `<div class="checkout-total"><span>Subtotal</span><strong>${fmt(total)}</strong></div><div class="checkout-total"><span>Delivery</span><strong>Confirmed after order</strong></div><div class="checkout-grand-total"><span>Total</span><strong>${fmt(total)}</strong></div>`;
       }
       function open(id) {
-        $(id).classList.add("open");
+        if ($(id)) $(id).classList.add("open");
       }
       function close(id) {
-        $(id).classList.remove("open");
+        if ($(id)) $(id).classList.remove("open");
       }
-      $("openCart").onclick = () => {
+      if ($("openCart")) $("openCart").onclick = () => {
         updateCart();
+        if (document.body.dataset.page === "checkout") {
+          if ($("checkoutSummary")) {
+            $("checkoutSummary").scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+          return;
+        }
         open("cartModal");
       };
-      $("closeCart").onclick = () => close("cartModal");
-      $("closeCheckout").onclick = () => close("checkoutModal");
-      $("checkoutBtn").onclick = () => {
+      if ($("closeCart")) $("closeCart").onclick = () => close("cartModal");
+      if ($("closeCheckout")) $("closeCheckout").onclick = () => close("checkoutModal");
+      if ($("checkoutBtn")) $("checkoutBtn").onclick = () => {
         if (!Object.keys(cart).length) return;
         close("cartModal");
-        open("checkoutModal");
+        window.location.href = "checkout.html";
       };
       document.querySelectorAll("[data-filter-link]").forEach(
         (a) =>
@@ -183,10 +322,10 @@
             renderProducts();
           }),
       );
-      $("search").oninput = renderProducts;
-      $("sort").onchange = renderProducts;
+      if ($("search")) $("search").oninput = renderProducts;
+      if ($("sort")) $("sort").onchange = renderProducts;
       function orderText() {
-        let f = new FormData($("orderForm"));
+        let f = new FormData($("orderForm") || $("checkoutForm"));
         let lines = Object.entries(cart).map(([id, q]) => {
           let p = productsData.find((x) => x.id === +id);
           return `- ${p.name} x${q}: ${fmt(p.price * q)}`;
@@ -197,10 +336,10 @@
         );
         return `SheMart Order\nName: ${f.get("name")}\nPhone: ${f.get("phone")}\nAddress: ${f.get("address")}, ${f.get("city")}\nPayment: ${f.get("payment")}\nItems:\n${lines.join("\n")}\nTotal (delivery may be extra): ${fmt(total)}\nNotes: ${f.get("notes") || "None"}`;
       }
-      $("orderForm").onsubmit = (e) => {
+      if ($("orderForm")) $("orderForm").onsubmit = (e) => {
         e.preventDefault();
         if (!Object.keys(cart).length) {
-          $("orderResult").textContent = "Your bag is empty.";
+          $("orderResult").textContent = "Your cart is empty.";
           return;
         }
         const text = orderText();
@@ -221,12 +360,69 @@
           "noopener",
         );
       };
-      $("draftOrder").onclick = () => {
+      if ($("checkoutForm")) $("checkoutForm").onsubmit = (e) => {
+        e.preventDefault();
+        if (!Object.keys(cart).length) {
+          $("checkoutMessage").textContent = "Your cart is empty. Please add an item before checking out.";
+          return;
+        }
+        const text = orderText();
+        $("checkoutMessage").innerHTML = "<b>Order details ready.</b> Please send this order to SheMart on WhatsApp.";
+        $("checkoutOrderText").value = text;
+        const whatsappLink = document.querySelector(".checkout-whatsapp");
+        if (whatsappLink) whatsappLink.href = "https://wa.me/923001234567?text=" + encodeURIComponent(text);
+        $("checkoutConfirmation").hidden = false;
+        $("checkoutConfirmation").scrollIntoView({ behavior: "smooth", block: "nearest" });
+      };
+      if ($("copyOrder")) $("copyOrder").onclick = async () => {
+        await navigator.clipboard.writeText($("checkoutOrderText").value);
+        $("copyOrder").textContent = "Copied ✓";
+      };
+      if ($("draftOrder")) $("draftOrder").onclick = () => {
         if (!$("orderForm").reportValidity()) return;
         $("orderResult").innerHTML =
           '<div class="notice"><b>Order summary</b><br><textarea readonly style="width:100%;min-height:180px;margin-top:8px;padding:10px;border:1px solid #f0dfe6;border-radius:9px"></textarea></div>';
         $("orderResult").querySelector("textarea").value = orderText();
       };
+      if ($("contactForm")) $("contactForm").onsubmit = (e) => {
+        e.preventDefault();
+        $("contactSuccess").textContent =
+          "Thanks for reaching out! We will get back to you soon.";
+        e.target.reset();
+      };
+      if ($("newsletterForm")) $("newsletterForm").onsubmit = (e) => {
+        e.preventDefault();
+        $("newsletterMessage").textContent = "You’re on the list — welcome to SheMart.";
+        e.target.reset();
+      };
+      document.querySelectorAll(".menu-toggle").forEach((button) => {
+        button.onclick = () => {
+          const nav = document.querySelector(".navlinks");
+          nav.classList.toggle("menu-open");
+          button.setAttribute("aria-expanded", nav.classList.contains("menu-open"));
+        };
+      });
+      $("cartModal").onclick = (e) => {
+        if (e.target === $("cartModal")) close("cartModal");
+      };
+      if ($("checkoutModal")) $("checkoutModal").onclick = (e) => {
+        if (e.target === $("checkoutModal")) close("checkoutModal");
+      };
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          close("cartModal");
+          close("checkoutModal");
+        }
+      });
       renderCats();
       renderProducts();
       updateCart();
+      updateNavigation();
+      renderCheckoutSummary();
+      if (
+        document.body.dataset.page === "shop" &&
+        window.location.hash === "#checkout" &&
+        Object.keys(cart).length
+      ) {
+        open("checkoutModal");
+      }

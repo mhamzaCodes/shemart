@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Shop SheMart women's fashion, innerwear, cosmetics and beauty essentials."
+    />
+    <title>Shop | SheMart</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="shop">
+    <div class="topbar">
+      Thoughtful finds for her · Delivery across Pakistan · Cash on Delivery
+      option
+    </div>
+    <header class="wrap nav">
+      <a href="index.html" style="text-decoration: none"
+        ><div class="logo">SheMart<small>WOMEN'S ONLINE STORE</small></div></a
+      >
+      <nav class="navlinks">
+        <a href="index.html">Home</a
+        ><a class="active-link" href="shop.html">Shop all</a
+        ><a href="shop.html?category=Women's%20innerwear">Innerwear</a
+        ><a href="shop.html?category=Ladies%20clothing">Clothing</a
+        ><a href="shop.html?category=Cosmetics">Cosmetics</a
+        ><a href="about.html">About</a><a href="contact.html">Contact</a>
+      </nav>
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+      >
+        <span></span><span></span><span></span></button
+      ><button
+        class="cartbtn"
+        id="openCart"
+        aria-label="Open cart"
+        title="Open cart"
+      >
+        <svg class="carticon" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M3 4h2l2.1 10.1a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 1.9-1.4L21 8H7"
+          ></path>
+          <circle cx="10" cy="20" r="1.3"></circle>
+          <circle cx="18" cy="20" r="1.3"></circle></svg
+        ><span class="cart-count" id="cartCount" aria-live="polite">0</span>
+      </button>
+    </header>
+    <main class="wrap shop-page">
+      <section class="page-hero">
+        <div class="eyebrow">The SheMart edit</div>
+        <h1>Find something<br /><em>lovely.</em></h1>
+        <p>
+          Curated essentials for your wardrobe, beauty shelf and everyday
+          rituals.
+        </p>
+      </section>
+      <div class="shop-toolbar">
+        <div>
+          <span class="eyebrow">Shop collection</span>
+          <h2>All products</h2>
+        </div>
+        <div class="mobile-filter-label">Filter & sort below</div>
+      </div>
+      <div class="shop-layout">
+        <aside class="filter-sidebar">
+          <div class="filter-heading">
+            <b>Filter products</b><span>Refine your search</span>
+          </div>
+          <div class="filter-group">
+            <b>Categories</b>
+            <div id="categories" class="filter-categories"></div>
+          </div>
+          <div class="filter-group">
+            <b>Sort by</b
+            ><select id="sort" class="filter-select" aria-label="Sort products">
+              <option value="featured">Featured</option>
+              <option value="low">Price: low to high</option>
+              <option value="high">Price: high to low</option>
+            </select>
+          </div>
+        </aside>
+        <section class="shop-results">
+          <div class="shop-search">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"></circle>
+              <path d="m20 20-4-4"></path></svg
+            ><input
+              id="search"
+              type="search"
+              placeholder="Search products, categories..."
+              aria-label="Search products"
+            />
+          </div>
+          <div class="grid" id="products"></div>
+        </section>
+      </div>
+    </main>
+    <footer class="footer">
+      <div class="wrap footerinner">
+        <div>
+          <div class="logo">SheMart</div>
+          <p>
+            Women's innerwear, fashion and beauty essentials.<br />Style and
+            comfort, delivered with care.
+          </p>
+        </div>
+        <div>
+          <b>Customer care</b>
+          <p>
+            WhatsApp: +92 300 1234567<br />Email: hello@shemart.pk<br />Pakistan-wide delivery
+          </p>
+        </div>
+        <div>
+          <b>Useful links</b>
+          <p>
+            <a style="color: white" href="index.html">Home</a><br /><a
+              style="color: white"
+              href="about.html"
+              >About SheMart</a
+            ><br /><a style="color: white" href="contact.html">Contact us</a>
+          </p>
+        </div>
+        <div>
+          <b>Shop by category</b>
+          <p>
+            <a href="shop.html?category=Women's%20innerwear">Innerwear</a><br />
+            <a href="shop.html?category=Ladies%20clothing">Clothing</a><br />
+            <a href="shop.html?category=Cosmetics">Cosmetics</a><br />
+            <a href="shop.html?category=Beauty%20products">Beauty &amp; care</a>
+          </p>
+        </div>
+      </div>
+      <div class="wrap smallprint">
+        <span>© <span id="year"></span> SheMart. All rights reserved.</span>
+        <span>Made for your everyday confidence · Cash on Delivery available</span>
+      </div>
+    </footer>
+    <div
+      class="modal"
+      id="cartModal"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Shopping cart"
+    >
+      <div class="panel cart-panel">
+        <div class="panelhead">
+          <div>
+            <div class="eyebrow">Your SheMart order</div>
+            <h2>Your cart</h2>
+          </div>
+          <button class="close" id="closeCart" aria-label="Close">×</button>
+        </div>
+        <div id="cartItems"></div>
+        <div class="cart-summary">
+          <div class="summary-row">
+            <span>Subtotal</span><span id="cartSubtotal">Rs 0</span>
+          </div>
+          <div class="summary-row delivery-row">
+            <span>Delivery</span><span>Calculated at checkout</span>
+          </div>
+          <div class="total">
+            <span>Total</span><span id="cartTotal">Rs 0</span>
+          </div>
+        </div>
+        <button class="primary" id="checkoutBtn" style="width: 100%">
+          Continue to checkout
+        </button>
+      </div>
+    </div>
+    <div
+      class="modal"
+      id="checkoutModal"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Checkout"
+    >
+      <div class="panel">
+        <div class="panelhead">
+          <h2>Delivery details</h2>
+          <button class="close" id="closeCheckout" aria-label="Close">×</button>
+        </div>
+        <div class="notice">
+          Please enter your delivery information. This demo does not store
+          orders on a server.
+        </div>
+        <form id="orderForm">
+          <div class="formgrid">
+            <label
+              >Full name *<input
+                required
+                name="name"
+                placeholder="Your name" /></label
+            ><label
+              >Mobile number *<input
+                required
+                name="phone"
+                placeholder="03XX XXXXXXX" /></label
+            ><label class="full"
+              >Full delivery address *<textarea
+                required
+                name="address"
+                rows="2"
+                placeholder="House, street, area, city"
+              ></textarea></label
+            ><label
+              >City *<input
+                required
+                name="city"
+                placeholder="e.g. Lahore" /></label
+            ><label
+              >Payment method<select name="payment">
+                <option>Cash on Delivery</option>
+                <option>Bank transfer (confirm first)</option>
+              </select></label
+            ><label class="full"
+              >Order notes<textarea
+                name="notes"
+                rows="2"
+                placeholder="Size, colour or delivery instructions"
+              ></textarea>
+            </label>
+          </div>
+          <button
+            class="primary"
+            type="submit"
+            style="width: 100%; margin-top: 15px"
+          >
+            Prepare WhatsApp order</button
+          ><button
+            type="button"
+            class="add"
+            id="draftOrder"
+            style="width: 100%; margin-top: 9px"
+          >
+            Show order summary on this page
+          </button>
+        </form>
+        <div id="orderResult"></div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

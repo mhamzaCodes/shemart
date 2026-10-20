@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Learn more about SheMart." />
+    <title>About SheMart</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="about">
+    <div class="topbar">
+      Thoughtful finds for her · Delivery across Pakistan · Cash on Delivery
+      option
+    </div>
+    <header class="wrap nav">
+      <a href="index.html" style="text-decoration: none"
+        ><div class="logo">SheMart<small>WOMEN'S ONLINE STORE</small></div></a
+      >
+      <nav class="navlinks">
+        <a href="index.html">Home</a><a href="shop.html">Shop all</a
+        ><a href="shop.html?category=Women's%20innerwear">Innerwear</a
+        ><a href="shop.html?category=Ladies%20clothing">Clothing</a
+        ><a href="shop.html?category=Cosmetics">Cosmetics</a
+        ><a class="active-link" href="about.html">About</a
+        ><a href="contact.html">Contact</a>
+      </nav>
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+      >
+        <span></span><span></span><span></span></button
+      ><button
+        class="cartbtn"
+        id="openCart"
+        aria-label="Open cart"
+        title="Open cart"
+      >
+        <svg class="carticon" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M3 4h2l2.1 10.1a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 1.9-1.4L21 8H7"
+          ></path>
+          <circle cx="10" cy="20" r="1.3"></circle>
+          <circle cx="18" cy="20" r="1.3"></circle></svg
+        ><span class="cart-count" id="cartCount" aria-live="polite">0</span>
+      </button>
+    </header>
+    <main class="wrap inner-page">
+      <section class="inner-page-heading">
+        <div class="eyebrow">Our story</div>
+        <h1>Designed for your<br /><em>everyday glow.</em></h1>
+        <p>
+          SheMart is a thoughtful space for the pieces that make ordinary days
+          feel a little more beautiful.
+        </p>
+      </section>
+      <section class="about-section about-page-section">
+        <div class="about-visual">
+          <div class="about-badge"><strong>Since</strong><span>2024</span></div>
+        </div>
+        <div class="about-copy">
+          <div class="eyebrow">A little about us</div>
+          <h2>Thoughtful style, made for everyday life.</h2>
+          <p>
+            SheMart brings together essentials that help you feel comfortable,
+            confident and beautifully you. From everyday innerwear to easy
+            fashion and beauty favourites, every piece is selected with real
+            routines in mind.
+          </p>
+          <div class="about-points">
+            <div>
+              <span class="point-icon">✦</span
+              ><span
+                ><b>Curated with care</b>Useful, wearable finds chosen for
+                you.</span
+              >
+            </div>
+            <div>
+              <span class="point-icon">♡</span
+              ><span
+                ><b>Comfort first</b>Styles that fit beautifully into your
+                day.</span
+              >
+            </div>
+          </div>
+          <a class="text-link" href="shop.html"
+            >Explore our collection <span>→</span></a
+          >
+        </div>
+      </section>
+      <section class="values-strip">
+        <div>
+          <b>01</b>
+          <h3>Feel good</h3>
+          <p>Pieces chosen to help you feel at home in your own style.</p>
+        </div>
+        <div>
+          <b>02</b>
+          <h3>Look lovely</h3>
+          <p>Easy details and everyday favourites that lift your routine.</p>
+        </div>
+        <div>
+          <b>03</b>
+          <h3>Shop simply</h3>
+          <p>A warm, considered experience from browsing to delivery.</p>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="wrap footerinner">
+        <div>
+          <div class="logo">SheMart</div>
+          <p>
+            Women's innerwear, fashion and beauty essentials.<br />Style and
+            comfort, delivered with care.
+          </p>
+        </div>
+        <div>
+          <b>Customer care</b>
+          <p>
+            WhatsApp: +92 300 1234567<br />Email: hello@shemart.pk<br />Pakistan-wide delivery
+          </p>
+        </div>
+        <div>
+          <b>Useful links</b>
+          <p>
+            <a style="color: white" href="shop.html">Shop products</a><br /><a
+              style="color: white"
+              href="contact.html"
+              >Contact us</a
+            ><br /><a style="color: white" href="index.html">Back home</a>
+          </p>
+        </div>
+        <div>
+          <b>Shop by category</b>
+          <p>
+            <a href="shop.html?category=Women's%20innerwear">Innerwear</a><br />
+            <a href="shop.html?category=Ladies%20clothing">Clothing</a><br />
+            <a href="shop.html?category=Cosmetics">Cosmetics</a><br />
+            <a href="shop.html?category=Beauty%20products">Beauty &amp; care</a>
+          </p>
+        </div>
+      </div>
+      <div class="wrap smallprint">
+        <span>© <span id="year"></span> SheMart. All rights reserved.</span>
+        <span>Made for your everyday confidence · Cash on Delivery available</span>
+      </div>
+    </footer>
+    <div
+      class="modal"
+      id="cartModal"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Shopping cart"
+    >
+      <div class="panel cart-panel">
+        <div class="panelhead">
+          <div>
+            <div class="eyebrow">Your SheMart order</div>
+            <h2>Your cart</h2>
+          </div>
+          <button class="close" id="closeCart" aria-label="Close">×</button>
+        </div>
+        <div id="cartItems"></div>
+        <div class="cart-summary">
+          <div class="summary-row">
+            <span>Subtotal</span><span id="cartSubtotal">Rs 0</span>
+          </div>
+          <div class="summary-row delivery-row">
+            <span>Delivery</span><span>Calculated at checkout</span>
+          </div>
+          <div class="total">
+            <span>Total</span><span id="cartTotal">Rs 0</span>
+          </div>
+        </div>
+        <button class="primary" id="checkoutBtn" style="width: 100%">
+          Continue to checkout
+        </button>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

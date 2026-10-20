@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Secure checkout for your SheMart order." />
+    <title>Checkout | SheMart</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="checkout">
+    <div class="topbar">Thoughtful finds for her · Delivery across Pakistan · Cash on Delivery available</div>
+    <header class="wrap nav"></header>
+    <main class="wrap checkout-page">
+      <section class="checkout-heading">
+        <div class="eyebrow">Almost yours</div>
+        <h1>Complete your <em>order.</em></h1>
+        <p>Enter your delivery details and choose how you would like to pay. Cash on Delivery is available across Pakistan.</p>
+      </section>
+      <div class="checkout-layout">
+        <section class="checkout-card">
+          <div class="checkout-card-heading">
+            <div><span class="checkout-step">01</span><div><div class="eyebrow">Delivery details</div><h2>Where should we deliver?</h2></div></div>
+            <span class="required-note">* Required</span>
+          </div>
+          <form id="checkoutForm">
+            <div class="checkout-form-grid">
+              <label>Full name *<input required name="name" autocomplete="name" placeholder="Your full name" /></label>
+              <label>Mobile number *<input required name="phone" type="tel" autocomplete="tel" placeholder="03XX XXXXXXX" /></label>
+              <label class="full">Delivery address *<textarea required name="address" rows="3" placeholder="House, street, area and nearest landmark"></textarea></label>
+              <label>City *<input required name="city" placeholder="e.g. Lahore" /></label>
+              <label>Province
+                <select name="province"><option>Punjab</option><option>Sindh</option><option>Khyber Pakhtunkhwa</option><option>Balochistan</option><option>Islamabad Capital Territory</option><option>Gilgit-Baltistan</option><option>Azad Jammu & Kashmir</option></select>
+              </label>
+              <label class="full">Order notes <textarea name="notes" rows="2" placeholder="Size, colour or delivery instructions (optional)"></textarea></label>
+            </div>
+            <div class="checkout-payment">
+              <div class="checkout-card-heading"><div><span class="checkout-step">02</span><div><div class="eyebrow">Payment method</div><h2>Choose how to pay</h2></div></div></div>
+              <label class="payment-option"><input type="radio" name="payment" value="Cash on Delivery" checked /><span><b>Cash on Delivery</b><small>Pay in cash when your order arrives.</small></span><strong>COD</strong></label>
+              <label class="payment-option"><input type="radio" name="payment" value="Bank transfer (confirm first)" /><span><b>Bank transfer</b><small>We will share payment details after confirming your order.</small></span><strong>†</strong></label>
+            </div>
+            <label class="checkout-consent"><input required type="checkbox" /> <span>I confirm that my delivery details are correct and I understand that SheMart will contact me to confirm availability and delivery charges.</span></label>
+            <button class="primary checkout-submit" id="checkoutSubmit" type="submit">Prepare my order <span>→</span></button>
+            <div class="checkout-message" id="checkoutMessage" role="status"></div>
+            <div class="checkout-confirmation" id="checkoutConfirmation" hidden>
+              <b>Your order summary</b>
+              <textarea id="checkoutOrderText" readonly aria-label="Order summary"></textarea>
+              <div><button class="add" id="copyOrder" type="button">Copy summary</button><a class="primary checkout-whatsapp" href="https://wa.me/923001234567" target="_blank" rel="noopener">Open WhatsApp</a></div>
+            </div>
+          </form>
+        </section>
+        <aside class="checkout-card checkout-summary-card">
+          <div class="eyebrow">Your SheMart order</div><h2>Order summary</h2>
+          <div id="checkoutSummary"></div>
+          <div class="checkout-help"><b>Need help?</b><span>Our team can help confirm sizing, availability and delivery details.</span><a href="contact.html">Contact customer care →</a></div>
+        </aside>
+      </div>
+    </main>
+    <footer class="footer"></footer>
+    <script src="script.js"></script>
+  </body>
+</html>
