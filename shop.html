@@ -5,243 +5,405 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Shop SheMart women's fashion, innerwear, cosmetics and beauty essentials."
+      content="Discover the SheMart Edit: premium women's innerwear, designer pret & lawn, organic cosmetics, and skincare essentials across Pakistan."
     />
-    <title>Shop | SheMart</title>
-    <link rel="stylesheet" href="styles.css" />
+    <title>The Edit & Shop | SheMart Luxury Women's Boutique</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/shop.css" />
+    <link rel="stylesheet" href="css/shared.css" />
   </head>
   <body data-page="shop">
-    <div class="topbar">
-      Thoughtful finds for her · Delivery across Pakistan · Cash on Delivery
-      option
-    </div>
-    <header class="wrap nav">
-      <a href="index.html" style="text-decoration: none"
-        ><div class="logo">SheMart<small>WOMEN'S ONLINE STORE</small></div></a
-      >
-      <nav class="navlinks">
-        <a href="index.html">Home</a
-        ><a class="active-link" href="shop.html">Shop all</a
-        ><a href="shop.html?category=Women's%20innerwear">Innerwear</a
-        ><a href="shop.html?category=Ladies%20clothing">Clothing</a
-        ><a href="shop.html?category=Cosmetics">Cosmetics</a
-        ><a href="about.html">About</a><a href="contact.html">Contact</a>
-      </nav>
-      <button
-        class="menu-toggle"
-        type="button"
-        aria-label="Open menu"
-        aria-expanded="false"
-      >
-        <span></span><span></span><span></span></button
-      ><button
-        class="cartbtn"
-        id="openCart"
-        aria-label="Open cart"
-        title="Open cart"
-      >
-        <svg class="carticon" viewBox="0 0 24 24" aria-hidden="true">
-          <path
-            d="M3 4h2l2.1 10.1a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 1.9-1.4L21 8H7"
-          ></path>
-          <circle cx="10" cy="20" r="1.3"></circle>
-          <circle cx="18" cy="20" r="1.3"></circle></svg
-        ><span class="cart-count" id="cartCount" aria-live="polite">0</span>
-      </button>
-    </header>
-    <main class="wrap shop-page">
-      <section class="page-hero">
-        <div class="eyebrow">The SheMart edit</div>
-        <h1>Find something<br /><em>lovely.</em></h1>
-        <p>
-          Curated essentials for your wardrobe, beauty shelf and everyday
-          rituals.
-        </p>
-      </section>
-      <div class="shop-toolbar">
-        <div>
-          <span class="eyebrow">Shop collection</span>
-          <h2>All products</h2>
-        </div>
-        <div class="mobile-filter-label">Filter & sort below</div>
+    <!-- Top Announcement Bar -->
+    <aside class="topbar" aria-label="Store Announcement">
+      <div class="topbar-center">
+        <span class="topbar-badge">Curated For Her</span>
+        <span>Delivery Nationwide · Free Shipping on orders over Rs. 3,500</span>
       </div>
-      <div class="shop-layout">
-        <aside class="filter-sidebar">
-          <div class="filter-heading">
-            <b>Filter products</b><span>Refine your search</span>
+      <div class="topbar-links">
+        <a href="#track">Track Order</a>
+        <a href="#help">Help &amp; FAQs</a>
+      </div>
+    </aside>
+
+    <!-- Navigation Header -->
+    <div id="sharedHeader"></div>
+
+    <main class="wrap">
+      <!-- Hero Showcase Section -->
+      <section class="shop-hero">
+        <div class="hero-content">
+          <div class="hero-tag">
+            <span class="dot"></span>
+            Spring / Summer '26 Collection
           </div>
-          <div class="filter-group">
-            <b>Categories</b>
-            <div id="categories" class="filter-categories"></div>
+          <h1>
+            Grace in every thread,<br />
+            <em>glow</em> in every ritual.
+          </h1>
+          <p>
+            Explore our artisanal lingerie, curated breathable cottons, luxury silks, and derm-tested botanical skincare crafted for modern Pakistani women.
+          </p>
+
+          <div class="trending-tags">
+            <span class="title">Popular searches:</span>
+            <button class="quick-tag" onclick="quickSearch('Silk')">Silk Robe</button>
+            <button class="quick-tag" onclick="quickSearch('Lawn')">Lawn Pret</button>
+            <button class="quick-tag" onclick="quickSearch('Serum')">Glow Serum</button>
+            <button class="quick-tag" onclick="quickSearch('Seamless')">Seamless Bras</button>
           </div>
-          <div class="filter-group">
-            <b>Sort by</b
-            ><select id="sort" class="filter-select" aria-label="Sort products">
-              <option value="featured">Featured</option>
-              <option value="low">Price: low to high</option>
-              <option value="high">Price: high to low</option>
+        </div>
+
+        <div class="hero-visual">
+          <div class="hero-pill-card">
+            <span class="stat">100%</span>
+            <span class="lbl">Original Quality</span>
+          </div>
+          <div class="hero-pill-card">
+            <span class="stat">48hr</span>
+            <span class="lbl">Express Delivery</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Category Filter Pills -->
+      <nav class="category-strip-wrapper" aria-label="Categories">
+        <div class="category-pills" id="categoryPills">
+          <!-- Populated by JS -->
+        </div>
+      </nav>
+
+      <!-- Search, Controls, Sorting, and View Switch -->
+      <section class="control-bar">
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input
+            type="search"
+            id="searchInput"
+            placeholder="Search products by title, tag, or fabric..."
+            aria-label="Search items"
+          />
+          <button class="clear-btn" id="searchClearBtn" aria-label="Clear Search">✕</button>
+        </div>
+
+        <div class="control-tools">
+          <button class="filter-mobile-trigger" id="mobileFilterBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+            </svg>
+            Filters
+          </button>
+
+          <span class="result-count-label" id="resultsCount">Showing products</span>
+
+          <div class="sort-select-wrapper">
+            <select id="sortSelect" aria-label="Sort products">
+              <option value="featured">Featured Picks</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+              <option value="rating">Highest Rated</option>
+              <option value="newest">New Arrivals</option>
             </select>
           </div>
-        </aside>
-        <section class="shop-results">
-          <div class="shop-search">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <circle cx="11" cy="11" r="7"></circle>
-              <path d="m20 20-4-4"></path></svg
-            ><input
-              id="search"
-              type="search"
-              placeholder="Search products, categories..."
-              aria-label="Search products"
-            />
+
+          <div class="view-toggle">
+            <button class="view-btn active" id="gridViewBtn" title="Grid View" aria-label="Grid View">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+              </svg>
+            </button>
+            <button class="view-btn" id="listViewBtn" title="List View" aria-label="List View">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <line x1="8" y1="6" x2="21" y2="6" stroke="currentColor" stroke-width="2"></line>
+                <line x1="8" y1="12" x2="21" y2="12" stroke="currentColor" stroke-width="2"></line>
+                <line x1="8" y1="18" x2="21" y2="18" stroke="currentColor" stroke-width="2"></line>
+                <circle cx="4" cy="6" r="2"></circle>
+                <circle cx="4" cy="12" r="2"></circle>
+                <circle cx="4" cy="18" r="2"></circle>
+              </svg>
+            </button>
           </div>
-          <div class="grid" id="products"></div>
+        </div>
+      </section>
+
+      <!-- Main Layout: Sidebar + Grid -->
+      <div class="catalog-layout">
+        <!-- Sidebar Filters -->
+        <aside class="sidebar" id="filterSidebar">
+          <div class="sidebar-head">
+            <h3>Filter Collection</h3>
+            <button class="sidebar-reset" onclick="resetAllFilters()">Clear all</button>
+          </div>
+
+          <!-- Price Range Filter -->
+          <div class="filter-section">
+            <div class="filter-title">
+              <span>Max Price</span>
+              <span id="priceOutput">Rs. 8,000</span>
+            </div>
+            <input
+              type="range"
+              id="priceRange"
+              class="range-slider"
+              min="800"
+              max="12000"
+              step="200"
+              value="12000"
+            />
+            <div class="price-inputs">
+              <span>Rs. 800</span>
+              <span>Rs. 12,000</span>
+            </div>
+          </div>
+
+          <!-- In-Stock Toggle -->
+          <div class="filter-section">
+            <label class="switch-toggle">
+              <span style="font-weight: 600">In Stock Only</span>
+              <span class="switch">
+                <input type="checkbox" id="inStockToggle" checked />
+                <span class="slider-round"></span>
+              </span>
+            </label>
+          </div>
+
+          <!-- Rating Filter -->
+          <div class="filter-section">
+            <div class="filter-title">Customer Ratings</div>
+            <div class="filter-options">
+              <label class="filter-item">
+                <div class="filter-item-left">
+                  <input type="radio" name="ratingFilter" value="0" checked />
+                  <span>All Ratings</span>
+                </div>
+              </label>
+              <label class="filter-item">
+                <div class="filter-item-left">
+                  <input type="radio" name="ratingFilter" value="4.5" />
+                  <span>★ 4.5 &amp; above</span>
+                </div>
+              </label>
+              <label class="filter-item">
+                <div class="filter-item-left">
+                  <input type="radio" name="ratingFilter" value="4.0" />
+                  <span>★ 4.0 &amp; above</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Special Tags -->
+          <div class="filter-section">
+            <div class="filter-title">Collections &amp; Deals</div>
+            <div class="filter-options">
+              <label class="filter-item">
+                <div class="filter-item-left">
+                  <input type="checkbox" id="filterBestSellers" />
+                  <span>Best Sellers</span>
+                </div>
+              </label>
+              <label class="filter-item">
+                <div class="filter-item-left">
+                  <input type="checkbox" id="filterDiscounts" />
+                  <span>On Sale (Discounted)</span>
+                </div>
+              </label>
+              <label class="filter-item">
+                <div class="filter-item-left">
+                  <input type="checkbox" id="filterNewArrivals" />
+                  <span>New Arrivals</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- SheMart Trust Promise -->
+          <div class="trust-card">
+            <div class="icon">✦</div>
+            <p>Discreet, sealed packaging &amp; easy 7-day exchange guarantee on ready-to-wear garments.</p>
+          </div>
+        </aside>
+
+        <!-- Product Cards Container -->
+        <section id="productsContainer" class="products-grid">
+          <!-- Rendered dynamically -->
         </section>
       </div>
     </main>
-    <footer class="footer">
-      <div class="wrap footerinner">
-        <div>
-          <div class="logo">SheMart</div>
-          <p>
-            Women's innerwear, fashion and beauty essentials.<br />Style and
-            comfort, delivered with care.
-          </p>
-        </div>
-        <div>
-          <b>Customer care</b>
-          <p>
-            WhatsApp: +92 300 1234567<br />Email: hello@shemart.pk<br />Pakistan-wide delivery
-          </p>
-        </div>
-        <div>
-          <b>Useful links</b>
-          <p>
-            <a style="color: white" href="index.html">Home</a><br /><a
-              style="color: white"
-              href="about.html"
-              >About SheMart</a
-            ><br /><a style="color: white" href="contact.html">Contact us</a>
-          </p>
-        </div>
-        <div>
-          <b>Shop by category</b>
-          <p>
-            <a href="shop.html?category=Women's%20innerwear">Innerwear</a><br />
-            <a href="shop.html?category=Ladies%20clothing">Clothing</a><br />
-            <a href="shop.html?category=Cosmetics">Cosmetics</a><br />
-            <a href="shop.html?category=Beauty%20products">Beauty &amp; care</a>
-          </p>
+
+
+    <!-- Quick View Product Modal -->
+    <div class="modal-backdrop" id="quickViewBackdrop">
+      <div class="modal-card">
+        <button class="modal-close" id="closeQuickView" aria-label="Close Modal">✕</button>
+        <div class="modal-grid">
+          <div class="modal-gallery">
+            <img id="qvImage" src="" alt="Product View" />
+          </div>
+          <div class="modal-details">
+            <span class="badge" id="qvCategory">Category</span>
+            <h2 id="qvTitle">Product Title</h2>
+            <div class="modal-price-row">
+              <span class="curr" id="qvPrice">Rs. 0</span>
+              <span class="old" id="qvOldPrice">Rs. 0</span>
+            </div>
+            <p class="modal-desc" id="qvDesc">Description text goes here.</p>
+
+            <div class="selector-title">Select Color</div>
+            <div class="swatches" id="qvSwatches" style="margin-bottom: 20px"></div>
+
+            <div class="selector-title">Select Size / Fit</div>
+            <div class="size-pills">
+              <div class="size-pill active">Small</div>
+              <div class="size-pill">Medium</div>
+              <div class="size-pill">Large</div>
+              <div class="size-pill">XL</div>
+            </div>
+
+            <button class="checkout-btn" id="qvAddToCartBtn" style="margin-top: auto">
+              Add to Shopping Bag
+            </button>
+          </div>
         </div>
       </div>
-      <div class="wrap smallprint">
-        <span>© <span id="year"></span> SheMart. All rights reserved.</span>
-        <span>Made for your everyday confidence · Cash on Delivery available</span>
+    </div>
+
+    <!-- Interactive Checkout & WhatsApp Modal -->
+    <div class="modal-backdrop" id="checkoutBackdrop">
+      <div class="modal-card checkout-modal-card">
+        <button class="modal-close" id="closeCheckoutModal">✕</button>
+        <h2>Complete Your Order</h2>
+        <p class="subtitle">Quick Cash on Delivery or Instant WhatsApp Confirmation across Pakistan.</p>
+
+        <form id="orderForm" onsubmit="handleOrderSubmit(event)">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="custName">Full Name *</label>
+              <input type="text" id="custName" required placeholder="e.g. Ayesha Khan" />
+            </div>
+            <div class="form-group">
+              <label for="custPhone">WhatsApp / Mobile *</label>
+              <input type="tel" id="custPhone" required placeholder="0300 1234567" />
+            </div>
+            <div class="form-group full">
+              <label for="custAddress">Complete Street Address *</label>
+              <textarea id="custAddress" rows="2" required placeholder="House/Apartment #, Street, Phase, Landmark"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="custCity">City *</label>
+              <select id="custCity" required>
+                <option value="Lahore">Lahore</option>
+                <option value="Karachi">Karachi</option>
+                <option value="Islamabad">Islamabad</option>
+                <option value="Rawalpindi">Rawalpindi</option>
+                <option value="Faisalabad">Faisalabad</option>
+                <option value="Multan">Multan</option>
+                <option value="Peshawar">Peshawar</option>
+                <option value="Quetta">Quetta</option>
+                <option value="Other">Other City</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="custPayment">Payment Preference</label>
+              <select id="custPayment">
+                <option value="Cash on Delivery">Cash on Delivery (COD)</option>
+                <option value="Bank Transfer">Bank Transfer / Raast</option>
+                <option value="JazzCash / EasyPaisa">JazzCash / EasyPaisa</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label for="custNotes">Special Instructions (Optional)</label>
+              <input type="text" id="custNotes" placeholder="Delivery time preference, sizes, etc." />
+            </div>
+          </div>
+
+          <div class="modal-actions">
+            <button type="submit" class="whatsapp-action-btn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.21 8.21 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.53 11.59c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06s-1.05-.39-2-1.23c-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.5.11-.11.25-.29.37-.44.12-.14.17-.25.25-.41.08-.17.04-.31-.02-.44s-.56-1.34-.76-1.84c-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1s.9 2.44 1.02 2.6c.13.17 1.77 2.7 4.28 3.79.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.23-.18-.48-.3"></path>
+              </svg>
+              Confirm via WhatsApp
+            </button>
+            <button type="button" class="checkout-btn" style="background: var(--ink)" onclick="simulateCodOrder()">
+              Place Order as Cash on Delivery
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+      <span class="toast-badge">✓</span>
+      <span id="toastMessage">Product added to bag</span>
+    </div>
+
+    <!-- Luxury Footer -->
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <div class="footer-brand">
+          <div class="logo">SheMart<span class="period">.</span></div>
+          <p>
+            An intimate sanctuary for contemporary women. Thoughtfully designed innerwear, pret luxury, and beauty staples celebrating comfort, quality, and beauty.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Boutique Categories</h4>
+          <ul>
+            <li><a href="#" onclick="selectCategory('Innerwear'); return false;">Delicate Innerwear</a></li>
+            <li><a href="#" onclick="selectCategory('Clothing'); return false;">Designer Pret &amp; Sets</a></li>
+            <li><a href="#" onclick="selectCategory('Cosmetics'); return false;">Halal Certified Cosmetics</a></li>
+            <li><a href="#" onclick="selectCategory('Beauty & Skincare'); return false;">Herbal &amp; Clean Skincare</a></li>
+            <li><a href="#" onclick="selectCategory('Sleepwear'); return false;">Satin &amp; Modal Sleepwear</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Client Concierge</h4>
+          <ul>
+            <li><a href="#track">Track Shipment</a></li>
+            <li><a href="#exchange">Size Guide &amp; Exchanges</a></li>
+            <li><a href="#shipping">Shipping &amp; COD Policies</a></li>
+            <li><a href="#contact">Direct WhatsApp Support</a></li>
+            <li><a href="#privacy">Privacy &amp; Discreet Packaging</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Direct Contact</h4>
+          <p style="font-size: 13.5px; color: #eed8e5; line-height: 1.6">
+            WhatsApp Orders: <strong>+92 300 8472910</strong><br />
+            Email: care@shemart.pk<br />
+            Flagship Atelier: Gulberg III, Lahore, Pakistan
+          </p>
+          <div style="margin-top: 14px; font-size: 12px; color: #ffb8d0">
+            Mon - Sat: 10:00 AM - 9:00 PM PKT
+          </div>
+        </div>
+      </div>
+
+      <div class="wrap footer-bottom">
+        <span>© <span id="currentYear"></span> SheMart Boutique. Crafted with devotion in Pakistan.</span>
+        <span>Secure Payments · Cash on Delivery Nationwide · Swift Exchanges</span>
       </div>
     </footer>
-    <div
-      class="modal"
-      id="cartModal"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Shopping cart"
-    >
-      <div class="panel cart-panel">
-        <div class="panelhead">
-          <div>
-            <div class="eyebrow">Your SheMart order</div>
-            <h2>Your cart</h2>
-          </div>
-          <button class="close" id="closeCart" aria-label="Close">×</button>
-        </div>
-        <div id="cartItems"></div>
-        <div class="cart-summary">
-          <div class="summary-row">
-            <span>Subtotal</span><span id="cartSubtotal">Rs 0</span>
-          </div>
-          <div class="summary-row delivery-row">
-            <span>Delivery</span><span>Calculated at checkout</span>
-          </div>
-          <div class="total">
-            <span>Total</span><span id="cartTotal">Rs 0</span>
-          </div>
-        </div>
-        <button class="primary" id="checkoutBtn" style="width: 100%">
-          Continue to checkout
-        </button>
-      </div>
-    </div>
-    <div
-      class="modal"
-      id="checkoutModal"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Checkout"
-    >
-      <div class="panel">
-        <div class="panelhead">
-          <h2>Delivery details</h2>
-          <button class="close" id="closeCheckout" aria-label="Close">×</button>
-        </div>
-        <div class="notice">
-          Please enter your delivery information. This demo does not store
-          orders on a server.
-        </div>
-        <form id="orderForm">
-          <div class="formgrid">
-            <label
-              >Full name *<input
-                required
-                name="name"
-                placeholder="Your name" /></label
-            ><label
-              >Mobile number *<input
-                required
-                name="phone"
-                placeholder="03XX XXXXXXX" /></label
-            ><label class="full"
-              >Full delivery address *<textarea
-                required
-                name="address"
-                rows="2"
-                placeholder="House, street, area, city"
-              ></textarea></label
-            ><label
-              >City *<input
-                required
-                name="city"
-                placeholder="e.g. Lahore" /></label
-            ><label
-              >Payment method<select name="payment">
-                <option>Cash on Delivery</option>
-                <option>Bank transfer (confirm first)</option>
-              </select></label
-            ><label class="full"
-              >Order notes<textarea
-                name="notes"
-                rows="2"
-                placeholder="Size, colour or delivery instructions"
-              ></textarea>
-            </label>
-          </div>
-          <button
-            class="primary"
-            type="submit"
-            style="width: 100%; margin-top: 15px"
-          >
-            Prepare WhatsApp order</button
-          ><button
-            type="button"
-            class="add"
-            id="draftOrder"
-            style="width: 100%; margin-top: 9px"
-          >
-            Show order summary on this page
-          </button>
-        </form>
-        <div id="orderResult"></div>
-      </div>
-    </div>
-    <script src="script.js"></script>
+
+    <!-- Comprehensive JavaScript Logic -->
+    <script src="js/shared.js"></script>
+    <script src="js/shop.js"></script>
   </body>
 </html>

@@ -78,26 +78,33 @@
         const footer = document.querySelector("footer.footer");
         if (header) {
           header.outerHTML = `
-            <header class="wrap nav">
-              <a href="index.html" class="brand-link"><div class="logo">SheMart<small>WOMEN'S ONLINE STORE</small></div></a>
-              <nav class="navlinks" aria-label="Main navigation">
-                <a href="index.html">Home</a>
-                <a href="shop.html">Shop all</a>
-                <a href="shop.html?category=Women's%20innerwear">Innerwear</a>
-                <a href="shop.html?category=Ladies%20clothing">Clothing</a>
-                <a href="shop.html?category=Cosmetics">Cosmetics</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
-              </nav>
-              <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
-              <button class="cartbtn" id="openCart" aria-label="Open cart" title="Open cart">
-                <svg class="carticon" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M3 4h2l2.1 10.1a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 1.9-1.4L21 8H7"></path>
-                  <circle cx="10" cy="20" r="1.3"></circle>
-                  <circle cx="18" cy="20" r="1.3"></circle>
-                </svg>
-                <span class="cart-count" id="cartCount" aria-live="polite">0</span>
-              </button>
+            <header class="header-sticky" id="mainHeader">
+              <div class="wrap nav">
+                <div class="brand-box">
+                  <button class="mobile-menu-btn menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+                  <a href="index.html" class="logo">SheMart<span class="period">.</span><small>WOMEN'S BOUTIQUE &amp; CARE</small></a>
+                </div>
+                <nav class="nav-links navlinks" aria-label="Primary Navigation">
+                  <a href="index.html">Home</a>
+                  <a href="shop.html">The Shop</a>
+                  <a href="shop.html?category=Innerwear">Innerwear</a>
+                  <a href="shop.html?category=Clothing">Clothing</a>
+                  <a href="shop.html?category=Cosmetics">Cosmetics</a>
+                  <a href="shop.html?category=Beauty%20%26%20Skincare">Skincare</a>
+                  <a href="about.html">About</a>
+                  <a href="contact.html">Contact</a>
+                </nav>
+                <div class="nav-actions">
+                  <button class="icon-btn wishlist-button" id="wishlistHeaderBtn" title="Favorites" aria-label="Favorites">
+                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+                    <span class="badge-counter wishlist-count" id="wishlistCount">0</span>
+                  </button>
+                  <button class="icon-btn cartbtn" id="openCart" aria-label="Open Shopping Bag" title="Shopping Cart">
+                    <svg class="carticon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                    <span class="badge-counter cart-count" id="cartCount" aria-live="polite">0</span>
+                  </button>
+                </div>
+              </div>
             </header>`;
         }
         if (footer) {
@@ -402,9 +409,11 @@
           button.setAttribute("aria-expanded", nav.classList.contains("menu-open"));
         };
       });
-      $("cartModal").onclick = (e) => {
-        if (e.target === $("cartModal")) close("cartModal");
-      };
+      if ($("cartModal")) {
+        $("cartModal").onclick = (e) => {
+          if (e.target === $("cartModal")) close("cartModal");
+        };
+      }
       if ($("checkoutModal")) $("checkoutModal").onclick = (e) => {
         if (e.target === $("checkoutModal")) close("checkoutModal");
       };
